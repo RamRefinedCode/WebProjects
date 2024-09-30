@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Java Script<br><span>Age Calculator</span></h1>
+            <div class="input-box">
+                <input type="date" id="date">
+                <button onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('date').value);
+            const today = new Date();
+
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            const dayDifference = today.getDate() - birthDate.getDate();
+
+    
+            if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                ageYears--;
+            }
+
+            let ageMonths = monthDifference < 0 ? monthDifference + 12 : monthDifference;
+            if (dayDifference < 0) {
+                ageMonths--;
+            }
+
+            const adjustedDayDifference = (dayDifference < 0) ? (new Date(today.getFullYear(), today.getMonth(), 0).getDate() + dayDifference) : dayDifference;
+
+    
+            if (ageMonths < 0) {
+                ageMonths += 12;
+            }
+            document.getElementById('result').innerHTML = `You are <span class="age-number">${ageYears}</span> years, <span class="age-number">${ageMonths}</span> months, and <span class="age-number">${adjustedDayDifference}</span> days old.`; 
+        }
+    </script>
+</body>
+</html>
